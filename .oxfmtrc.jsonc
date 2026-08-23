@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [],
+  "sortImports": {
+    "newlinesBetween": true,
+    "customGroups": [
+      {
+        "groupName": "alias-src",
+        "elementNamePattern": ["@/**"]
+      },
+      {
+        "groupName": "alias-worker",
+        "elementNamePattern": ["@worker/**"]
+      }
+    ],
+    "groups": [
+      "builtin",
+      "external",
+      "alias-src",
+      "alias-worker",
+      "parent",
+      "sibling",
+      "index",
+      "unknown"
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["*.jsonc", "**/*.jsonc"],
+      "options": {
+        "trailingComma": "none"
+      }
+    }
+  ]
+}
