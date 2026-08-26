@@ -1,101 +1,93 @@
 import { useState } from "react";
 
-import heroImg from "./assets/hero.png";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "./assets/vite.svg";
-import "./App.css";
+import Style from "./App.module.css";
+import { useThirtyOneSystemCard } from "./hooks/use-thirty-one-system-card";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [betPerUnit, setBetPerUnit] = useState(10);
+  const [card01, profitsCard01, resetStateCard01, resetProfitsCard01] = useThirtyOneSystemCard({
+    title: "First Lane",
+    perUnit: betPerUnit,
+  });
+  const [card02, profitsCard02, resetStateCard02, resetProfitsCard02] = useThirtyOneSystemCard({
+    title: "Second Lane",
+    perUnit: betPerUnit,
+  });
+  const [card03, profitsCard03, resetStateCard03, resetProfitsCard03] = useThirtyOneSystemCard({
+    title: "Third Lane",
+    perUnit: betPerUnit,
+  });
+
+  const allProfits = profitsCard01 + profitsCard02 + profitsCard03;
+
+  function clickResetState() {
+    resetStateCard01();
+    resetStateCard02();
+    resetStateCard03();
+  }
+
+  function clickResetProfits() {
+    resetProfitsCard01();
+    resetProfitsCard02();
+    resetProfitsCard03();
+  }
+
+  const styleProfits = allProfits < 0 ? Style.Akaji : "";
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      <nav className="navbar is-primary">
+        <div className="bulma-navbar-burger">
+          <a className="navbar-item" style={{ height: "100%" }}>
+            Triple 31 System
+          </a>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+      </nav>
+      <div className="container pt-5">
+        <div className="is-flex is-justify-content-center">
+          <div className="card" style={{ width: "600px" }}>
+            <header className="card-header">
+              <p className="card-header-title">Form</p>
+            </header>
+            <div className="card-content">
+              <div className="field">
+                <label className="label">All Profits</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="number"
+                    value={betPerUnit}
+                    onChange={(e) => setBetPerUnit(Number(e.target.value))}
+                  />
+                </div>
+                <label className="label">Bet per unit</label>
+                <div className="control">
+                  <input
+                    className={`input ${styleProfits}`}
+                    type="number"
+                    value={allProfits}
+                    disabled
+                  />
+                </div>
+              </div>
+            </div>
+            <footer className="card-footer">
+              <p className={`card-footer-item ${Style.FooterButton}`} onClick={clickResetState}>
+                Reset All State
+              </p>
+              <p className={`card-footer-item ${Style.FooterButton}`} onClick={clickResetProfits}>
+                Reset All Profits
+              </p>
+            </footer>
+          </div>
         </div>
-        <button type="button" className="counter" onClick={() => setCount((count) => count + 1)}>
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <hr />
+        <div className="is-flex is-justify-content-space-around">
+          {card01}
+          {card02}
+          {card03}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg className="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg className="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg className="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg className="button-icon" role="presentation" aria-hidden="true">
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      </div>
     </>
   );
 }

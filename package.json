@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bulma": "^1.0.4",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-dom": "^19.2.8",
+    "uuid": "^14.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",

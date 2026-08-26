@@ -1,0 +1,18 @@
+.SystemCard {
+  width: 300px;
+  display: inline-block;
+}
+
+.FooterButton {
+  cursor: pointer;
+  color: blue;
+}
+
+.FooterButtonDisabled {
+  cursor: default;
+  color: gray;
+}
+
+.Akaji {
+  color: red;
+}
